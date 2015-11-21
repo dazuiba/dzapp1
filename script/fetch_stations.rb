@@ -68,7 +68,7 @@ class StationFetcher
       File.open(dest_file,"w") do |file|
         file << new_json.to_json
       end
-      ln_cmd = "ln -fs #{dest_file} #{DEST_DIR}/current.json"
+      ln_cmd = "cd #{DEST_DIR};ln -fs stations_#{new_version}.json current.json"
       puts ln_cmd
       `#{ln_cmd}`
     else   
