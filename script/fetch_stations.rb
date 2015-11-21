@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
-
+require 'active_support/all'
 # class StationDoc
 #   attr_accessor :json_obj
 #   def self.from_xml_doc(xml_doc)
@@ -66,8 +66,11 @@ class StationFetcher
       puts "do update-> #{dest_file}"
       
       File.open(dest_file,"w") do |file|
-        file << new_json.to_s
+        file << new_json.to_json
       end
+      ln_cmd = "ln -fs #{dest_file} #{DEST_DIR}/current.json"
+      puts ln_cmd
+      `#{ln_cmd}`
     else   
       puts "no changes"
     end
